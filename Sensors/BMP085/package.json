@@ -1,0 +1,22 @@
+{
+  "name": "bmp085",
+  "version": "0.2.0",
+  "description": "A sensor package for the BMP085 i2c barometer/temperature sensor.",
+  "main": "bmp085.js",
+  "author": {
+    "name": "xlevel",
+    "email": "jim@xlevel.org.uk"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bmp085": "~0.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  },
+  "scripts": {
+    "lint": "node_modules/.bin/eslint '**/*.js'"
+  }
+}
