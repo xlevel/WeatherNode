@@ -1,0 +1,41 @@
+﻿{
+    "interval": 3000,
+    "sensors": [
+        {
+            "type": "../../../Sensors/DHT22/dht22.js",
+            "id": "Sensor 1",
+            "settings": {
+                "pin": 4
+            }
+        },
+        {
+            "type": "./mockSensor.js",
+            "id": "Sensor 2",
+            "settings": { }
+        }
+    ],
+    "data": {
+        "type": "./adafruitIo.js",
+        "config": {
+            "aioKey":"REPLACE WITH AIO KEY",
+            "user":"REPLACE WITH USER NAME",
+            "feeds":[
+                {
+                    "id":"test-temp",
+                    "sensor": "Sensor 1",
+                    "type": "t"
+                },
+                {
+                    "id":"test-hum",
+                    "sensor": "Sensor 1",
+                    "type": "h"
+                },
+                {
+                    "id":"FEED NAME",
+                    "sensor": "SENSOR NAME",
+                    "type": "ONE OF t,p OR h"
+                }
+            ]
+        }
+    }
+}
