@@ -1,11 +1,11 @@
 /* eslint-disable import/no-dynamic-require, global-require  */
 
 function validateConfig(config) {
-  if (config === null || config === undefined) {
+  if (!config) {
     throw new Error('Error: Missing initialization configuration');
   }
 
-  if (config.sensors === undefined) {
+  if (!config.sensors) {
     throw new Error('Error: Missing sensor configuration');
   }
 }
