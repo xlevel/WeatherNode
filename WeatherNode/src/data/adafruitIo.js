@@ -3,7 +3,7 @@ const http = require('https');
 
 class AdafruitIo {
   constructor(config) {
-    this.config = config.data;
+    this.config = config.data.config;
   }
 
   static saveReading(aio, userId, feedId, value) {
@@ -38,8 +38,8 @@ class AdafruitIo {
     const { id } = reading;
 
     reading.readings.forEach((element) => {
-      const feed = this.config.config.feeds.find(f => f.sensor === id && f.type === element.type);
-      this.saveReading(this.config.config.aioKey, this.config.config.user, feed.id, element.value);
+      const feed = this.config.feeds.find(f => f.sensor === id && f.type === element.type);
+      AdafruitIo.saveReading(this.config.aioKey, this.config.user, feed.id, element.value);
     }, this);
   }
 }
