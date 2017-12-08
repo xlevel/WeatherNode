@@ -1,0 +1,22 @@
+{
+  "name": "dht22-sensor",
+  "version": "0.2.0",
+  "description": "A sensor package for the DHT-22/AM2302 sensor ",
+  "main": "dht22.js",
+  "author": {
+    "name": "xlevel",
+    "email": "jim@xlevel.org.uk"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "node-dht-sensor": "~0.0.32"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  },
+  "scripts": {
+    "lint": "node_modules/.bin/eslint '**/*.js'"
+  }
+}
