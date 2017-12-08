@@ -14,6 +14,7 @@
             "settings": { }
         }
     ],
+    /* Adafruit IO connection details */
     "data": {
         "type": "./adafruitIo.js",
         "config": {
@@ -32,6 +33,31 @@
                 },
                 {
                     "id":"FEED NAME",
+                    "sensor": "SENSOR NAME",
+                    "type": "ONE OF t,p OR h"
+                }
+            ]
+        }
+    }
+    /* MQTT Connections details */
+
+    "data": {
+        "type": "./mqtt.js",
+        "config": {
+            "host":"MQTT SERVER URI",
+            "topics":[
+                {
+                    "topic":"test-temp",
+                    "sensor": "Sensor 1",
+                    "type": "t"
+                },
+                {
+                    "topic":"test-hum",
+                    "sensor": "Sensor 1",
+                    "type": "h"
+                },
+                {
+                    "topic":"MQTT TOPIC",
                     "sensor": "SENSOR NAME",
                     "type": "ONE OF t,p OR h"
                 }
