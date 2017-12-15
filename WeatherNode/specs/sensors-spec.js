@@ -1,4 +1,4 @@
-﻿const sensors = require('../src/sensors/sensors.js');
+const sensors = require('../src/sensors/sensors.js');
 const { expect } = require('chai');
 
 describe('sensors', () => {
