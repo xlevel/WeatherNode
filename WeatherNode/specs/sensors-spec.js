@@ -1,5 +1,6 @@
+/* eslint-disable */
 const sensors = require('../src/sensors/sensors.js');
-const { expect } = require('chai');
+const expect = require('chai').expect;
 
 describe('sensors', () => {
   describe('read', () => {
