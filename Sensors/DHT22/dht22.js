@@ -1,3 +1,5 @@
+'use strict'; // eslint-disable-line
+
 const sensorLib = require('node-dht-sensor');
 
 class DHT22Sensor {

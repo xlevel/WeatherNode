@@ -1,3 +1,5 @@
+'use strict'; // eslint-disable-line
+
 const sensorLib = require('ds18b20');
 
 class DS18B20Sensor {

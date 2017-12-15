@@ -1,3 +1,5 @@
+'use strict'; // eslint-disable-line
+
 const SensorLib = require('bmp085');
 
 class BMP085Sensor {
