@@ -1,4 +1,6 @@
+'use strict'; // eslint-disable-line
 /* eslint-disable no-console */
+
 const mqtt = require('mqtt');
 
 class Mqtt {
@@ -8,7 +10,7 @@ class Mqtt {
   }
 
   save(reading) {
-    const { id } = reading;
+    const id = reading.id; // eslint-disable-line prefer-destructuring
 
     if (this.client.connected) {
       reading.readings.forEach((element) => {
