@@ -1,6 +1,6 @@
 {
   "name": "ds18b20-sensor",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A sensor package for a DS18B20 temperature sensor",
   "main": "ds18b20-sensor.js",
   "author": {

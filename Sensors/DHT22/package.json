@@ -1,6 +1,6 @@
 {
   "name": "dht22-sensor",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A sensor package for the DHT-22/AM2302 sensor ",
   "main": "dht22.js",
   "author": {

@@ -1,6 +1,6 @@
 {
   "name": "bmp085",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A sensor package for the BMP085 i2c barometer/temperature sensor.",
   "main": "bmp085.js",
   "author": {
