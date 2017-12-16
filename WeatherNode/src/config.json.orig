@@ -59,14 +59,19 @@
             "host":"MQTT SERVER URI",
             "topics":[
                 {
-                    "topic":"test-temp",
+                    "topic":"test/temp",
                     "sensor": "Sensor 1",
                     "type": "t"
                 },
                 {
-                    "topic":"test-hum",
+                    "topic":"test/hum",
                     "sensor": "Sensor 1",
                     "type": "h"
+                },
+                {
+                    "topic":"test/pres",
+                    "sensor": "Sensor 1",
+                    "type": "p"
                 },
                 {
                     "topic":"MQTT TOPIC",
