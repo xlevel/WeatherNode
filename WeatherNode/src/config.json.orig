@@ -1,17 +1,29 @@
 ﻿{
     "interval": 3000,
-    "sensors": [
+    "sensors": [    
+        {
+            "type": "./mockSensor.js",
+            "id": "Sensor 1",
+            "settings": { }
+        },
         {
             "type": "../../../Sensors/DHT22/dht22.js",
-            "id": "Sensor 1",
+            "id": "Sensor 2",
             "settings": {
                 "pin": 4
             }
         },
         {
-            "type": "./mockSensor.js",
-            "id": "Sensor 2",
+            "type": "../../../Sensors/BMP085/bmp085.js",
+            "id": "Sensor 3",
             "settings": { }
+        },
+        {
+            "type": "../../../Sensors/DS18B20/ds18b20-sensor.js",
+            "id": "Sensor 4",
+            "settings": {
+                "id": 00-0000000000
+            }
         }
     ],
     /* Adafruit IO connection details */
@@ -47,14 +59,19 @@
             "host":"MQTT SERVER URI",
             "topics":[
                 {
-                    "topic":"test-temp",
+                    "topic":"test/temp",
                     "sensor": "Sensor 1",
                     "type": "t"
                 },
                 {
-                    "topic":"test-hum",
+                    "topic":"test/hum",
                     "sensor": "Sensor 1",
                     "type": "h"
+                },
+                {
+                    "topic":"test/pres",
+                    "sensor": "Sensor 1",
+                    "type": "p"
                 },
                 {
                     "topic":"MQTT TOPIC",

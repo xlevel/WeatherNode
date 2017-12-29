@@ -25,6 +25,7 @@ Currently there are two supported sensors:
 7. Run the application using `node app`.
 
 ### Enabling the DHT22 sensor
+The DHT22 sensor uses the [node-dht-sensor module](https://github.com/momenso/node-dht-sensor). The README has instructions on how to setup the sensor, but in short you need to install the [BCM2835 C library](http://www.airspayce.com/mikem/bcm2835/) on your Raspberry Pi first.
 
 
 ## Configuration
@@ -32,13 +33,74 @@ Currently there are two supported sensors:
 ### Sensors
 
 #### DHT22
+Example Configuration:
 
+```
+  {
+      "type": "../../../Sensors/DHT22/dht22.js",
+      "id": "Sensor 2", // The sensor's name
+      "settings": {
+          "pin": 4 // The GPIO pin the sensor is connected to
+      }
+  }
+```
 #### BMP085
+Example Configuration:
 
+```
+  {
+      "type": "../../../Sensors/BMP085/bmp085.js",
+      "id": "Sensor 3", // The sensor's name
+      "settings": { } 
+  }
+```
 #### DS18B20
+Example Configuration:
+
+```
+  {
+     "type": "../../../Sensors/DS18B20/ds18b20-sensor.js",
+      "id": "Sensor 4", // The sensor's name
+      "settings": {
+          "id": 00-0000000000 // The "1-wire" sensor id
+      }
+  }
+```
 
 ### Data Target
 
 #### Adafruit IO
+Example Configuration:
+
+```
+  "type": "./adafruitIo.js",
+  "config": {
+      "aioKey":"XXXXXXXX", // The Adafruit IO 'AIO' key
+      "user":"XXXXXXXX", // Your Adafruit IO username
+      "feeds":[
+          {
+              "id":"test-temp", // The Adafruit IO feed id
+              "sensor": "Sensor 1", // The sensor's whose data is sent to the feed's name 
+              "type": "t" // The type of data to be sent. Either 't' (temperature), 'p' (pressure) or 'h' (humidity).
+          }
+      ]
+  }
+```
 
 #### MQTT
+Example Configuration:
+
+```
+  "type": "./mqtt.js",
+  "config": {
+      "host":"mqtt://mqttbroker.local", // The URI of the target MQTT broker server
+      "topics":[
+          {
+              "topic":"test/temp", // The MQTT topic to be published
+              "sensor": "Sensor 1", // The sensor's whose data is published to the topic's name 
+              "type": "t" // The type of data to be sent. Either 't' (temperature), 'p' (pressure) or 'h' (humidity).
+          }
+      ]
+  }
+
+```
