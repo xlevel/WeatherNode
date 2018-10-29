@@ -1,4 +1,3 @@
-'use strict'; // eslint-disable-line
 /* eslint-disable no-console */
 
 const mqtt = require('mqtt');

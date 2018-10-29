@@ -1,4 +1,3 @@
-'use strict'; // eslint-disable-line
 /* eslint-disable import/no-dynamic-require, global-require  */
 
 class DataAccess {

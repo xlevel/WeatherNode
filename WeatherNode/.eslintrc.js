@@ -1,9 +1,14 @@
 module.exports = {
     "env": {
-        "mocha": true
+        "node": true,
+        "jest/globals": true,
     },
-    "extends": "airbnb-base",
-    "rules": {
-        "import/no-extraneous-dependencies": 0
-    }
+    "extends": [
+        "airbnb-base",
+        "plugin:jest/recommended",
+    ],
+    plugins: [
+      "import",
+      "jest",
+    ],
 };

@@ -11,7 +11,9 @@
   "devDependencies": {
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.26.2",
+    "jest": "^23.6.0"
   },
   "dependencies": {
     "mqtt": "^2.15.0",
@@ -19,6 +21,7 @@
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint '**/*.js'",
-    "test": "./node_modules/.bin/_mocha -- ./specs -R spec --recursive"
+    "test": "./node_modules/.bin/jest src",
+    "coverage": "./node_modules/.bin/jest --collectCoverageFrom=src/**.js --coverage src"
   }
 }

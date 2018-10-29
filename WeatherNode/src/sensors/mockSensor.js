@@ -1,5 +1,3 @@
-'use strict'; // eslint-disable-line
-
 class MockSensor {
   constructor(config) {
     this.config = config;
