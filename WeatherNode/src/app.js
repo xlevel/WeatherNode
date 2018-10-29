@@ -9,4 +9,3 @@ setInterval(() => {
     dataAccessClient.save(result);
   });
 }, config.interval);
-

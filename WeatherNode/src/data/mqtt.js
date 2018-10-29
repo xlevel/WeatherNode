@@ -28,4 +28,3 @@ class Mqtt {
 }
 
 module.exports = Mqtt;
-
