@@ -9,15 +9,15 @@
     "email": "jim@xlevel.org.uk"
   },
   "devDependencies": {
-    "eslint": "^5.8.0",
-    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^21.26.2",
-    "jest": "^23.6.0"
+    "eslint-plugin-jest": "^23.8.2",
+    "jest": "^25.3.0"
   },
   "dependencies": {
-    "mqtt": "^2.15.0",
-    "rewire": "^3.0.2"
+    "mqtt": "^3.0.0",
+    "rewire": "^5.0.0"
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint '**/*.js'",
