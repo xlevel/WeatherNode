@@ -10,15 +10,16 @@ function validateConfig(config) {
   }
 }
 
-function read(config, callback) {
+async function read(config) {
+
   validateConfig(config);
 
-  config.sensors.forEach((sensorConfig) => {
-    const SensorType = require(sensorConfig.type);
-    const sensor = new SensorType(sensorConfig);
-
-    sensor.read(callback);
-  });
+  return Promise.all(
+    config.sensors.map(async sensorConfig => {
+      const sensor = require(sensorConfig.type);
+      return sensor.read(sensorConfig);
+    })
+  )
 }
 
 module.exports = {
