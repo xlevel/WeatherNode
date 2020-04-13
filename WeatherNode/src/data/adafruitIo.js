@@ -39,7 +39,7 @@ class AdafruitIo {
     const { id } = reading;
 
     reading.readings.forEach((element) => {
-      const feed = this.config.feeds.find(f => f.sensor === id && f.type === element.type);
+      const feed = this.config.feeds.find((f) => f.sensor === id && f.type === element.type);
       AdafruitIo.saveReading(this.config.aioKey, this.config.user, feed.id, element.value);
     }, this);
   }

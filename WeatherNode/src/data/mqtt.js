@@ -13,7 +13,7 @@ class Mqtt {
 
     if (this.client.connected) {
       reading.readings.forEach((element) => {
-        const topic = this.config.topics.find(f => f.sensor === id && f.type === element.type);
+        const topic = this.config.topics.find((f) => f.sensor === id && f.type === element.type);
 
         console.log(`${topic.topic} - ${element.value}`);
         this.client.publish(topic.topic, element.value.toString(), (err) => {
