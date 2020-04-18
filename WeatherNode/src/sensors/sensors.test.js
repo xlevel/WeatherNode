@@ -1,7 +1,7 @@
 const sensors = require('./sensors');
 
 describe('Sensors read', () => {
-  test.each([
+  it.each([
     [null, 'Error: Missing initialization configuration'],
     [undefined, 'Error: Missing initialization configuration'],
     [{ sensors: null }, 'Error: Missing sensor configuration'],
@@ -18,7 +18,7 @@ describe('Sensors read', () => {
     expect(errorMessage).toBe(expected);
   });
 
-  test.each([
+  it.each([
     [{ sensors: [{ id: 'sensor 1', type: './mockSensor.js' }] }, 1],
     [{
       sensors: [
@@ -39,7 +39,7 @@ describe('Sensors read', () => {
     expect(result.length).toBe(expected);
   });
 
-  test('should return a complate sensor reading', async () => {
+  it('should return a complate sensor reading', async () => {
     const config = { sensors: [{ id: 'sensor 1', type: './mockSensor.js' }] };
 
     const result = await sensors.read(config);

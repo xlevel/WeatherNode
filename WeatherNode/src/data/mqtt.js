@@ -1,29 +1,19 @@
-/* eslint-disable no-console */
-
 const mqtt = require('mqtt');
 
-class Mqtt {
-  constructor(config) {
-    this.config = config.data.config;
-    this.client = mqtt.connect(this.config.host);
+async function save(config, reading) {
+  const client = mqtt.connect(config.host);
+  const { id } = reading;
+
+  if (reading.readings) {
+    reading.readings.forEach(element => {
+      const topic = config.topics.find((f) => f.sensor === id && f.type === element.type);
+      client.publish(topic.topic, element.value.toString());
+    });
   }
 
-  save(reading) {
-    const id = reading.id; // eslint-disable-line prefer-destructuring
-
-    if (this.client.connected) {
-      reading.readings.forEach((element) => {
-        const topic = this.config.topics.find((f) => f.sensor === id && f.type === element.type);
-
-        console.log(`${topic.topic} - ${element.value}`);
-        this.client.publish(topic.topic, element.value.toString(), (err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }, this);
-    }
-  }
+  client.end();
 }
 
-module.exports = Mqtt;
+module.exports = {
+  save,
+};
