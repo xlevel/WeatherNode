@@ -52,11 +52,13 @@
         }
     }
     /* MQTT Connections details */
-
     "data": {
         "type": "./mqtt.js",
         "config": {
             "host":"MQTT SERVER URI",
+            "clientId":"CLIENT ID",
+            "username":"USERNAME - OPTIONAL", 
+            "password":"PASSWORD - OPTIONAL",
             "topics":[
                 {
                     "topic":"test/temp",
