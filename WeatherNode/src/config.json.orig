@@ -10,6 +10,7 @@
             "type": "../../../Sensors/DHT22/dht22.js",
             "id": "Sensor 2",
             "settings": {
+                "type": 22 // 11 for DHT11 sensor, 22 for DHT22 or AM2302 sensors
                 "pin": 4
             }
         },
