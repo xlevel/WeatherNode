@@ -1,48 +1,34 @@
 /* eslint-disable no-console */
 
-const http = require('https');
+const https = require('https');
 
-class AdafruitIo {
-  constructor(config) {
-    this.config = config.data.config;
-  }
+async function save(config, readings) {
 
-  static saveReading(aio, userId, feedId, value) {
-    console.log(`AIO: ${aio} - User Id: ${userId} - Feed Id: ${feedId} - Value: ${value}`);
+  readings.forEach((sensorReadings) => {
+    const { id } = sensorReadings;
 
-    const reading = {};
-    reading.value = value;
+    sensorReadings.readings.forEach(element => {
+      const feed = config.feeds.find((f) => f.type === element.type && f.sensor === id);
 
-    const data = JSON.stringify(reading);
+      const data = JSON.stringify({ value: element.value});
 
-    const options = {
-      hostname: 'io.adafruit.com',
-      path: `/api/v2/${userId}/feeds/${feedId}/data/`,
-      method: 'POST',
-      headers: {
-        'X-AIO-key': aio,
-        'Content-Type': 'application/json',
-        'Content-Length': data.length,
-      },
-    };
+      const options = {
+        method: 'POST',
+        headers: {
+          'X-AIO-key': config.aioKey,
+          'Content-Type': 'application/json',
+          'Content-Length': data.length
+        }
+      }
 
-    const request = http.request(options, (result) => {
-      console.log(`STATUS: ${result.statusCode}`);
+      const request = https.request(`https://io.adafruit.com/api/v2/${config.user}/feeds/${feed.id}/data`, options);
+      request.write(data);
+      request.end();
     });
+  });
 
-    console.log(data);
-    request.write(data);
-    request.end();
-  }
-
-  save(reading) {
-    const { id } = reading;
-
-    reading.readings.forEach((element) => {
-      const feed = this.config.feeds.find((f) => f.sensor === id && f.type === element.type);
-      AdafruitIo.saveReading(this.config.aioKey, this.config.user, feed.id, element.value);
-    }, this);
-  }
 }
 
-module.exports = AdafruitIo;
+module.exports = {
+  save,
+};

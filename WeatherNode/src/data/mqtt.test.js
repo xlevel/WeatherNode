@@ -81,10 +81,6 @@ describe('Mqtt save', () => {
     }
   });
 
-  // Throw error if no host
-
-  // throw error if no client Id
-
   it('should specify a Quality of Service of 1', async () => {
     const config = {
       host: 'mqtt://mqtt.test.com',
