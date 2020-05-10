@@ -4,7 +4,6 @@ const mqttClient = require('./mqtt');
 jest.mock('mqtt');
 
 describe('Mqtt save', () => {
-
   it('should connect to specified host', async () => {
     const config = { host: 'mqtt://mqtt.test.com', clientId: 'clientId' };
     const mockClient = {
@@ -58,13 +57,8 @@ describe('Mqtt save', () => {
     const mockClient = {};
 
     mqtt.connect.mockImplementation(() => mockClient);
-    expect.assertions(1);
 
-    try {
-      await mqttClient.save(config, []);
-    } catch(e) {
-      expect(e.message).toEqual('Unspecified MQTT host');
-    }
+    await expect(mqttClient.save(config, [])).rejects.toThrow();
   });
 
   it('should throw error if client Id is not specified', async () => {
@@ -72,13 +66,8 @@ describe('Mqtt save', () => {
     const mockClient = {};
 
     mqtt.connect.mockImplementation(() => mockClient);
-    expect.assertions(1);
 
-    try {
-      await mqttClient.save(config, []);
-    } catch(e) {
-      expect(e.message).toEqual('Unspecified MQTT client id');
-    }
+    await expect(mqttClient.save(config, [])).rejects.toThrow();
   });
 
   it('should specify a Quality of Service of 1', async () => {
@@ -95,7 +84,7 @@ describe('Mqtt save', () => {
     };
     const mockClient = {
       end: jest.fn(),
-      publish: jest.fn()
+      publish: jest.fn(),
     };
     mqtt.connect.mockImplementation(() => mockClient);
 
@@ -108,8 +97,14 @@ describe('Mqtt save', () => {
 
     await mqttClient.save(config, reading);
 
-    expect(mockClient.publish).toHaveBeenCalledWith(expect.any(String), expect.any(String), { qos: 1 }, expect.any(Function));
-    });
+    expect(mockClient.publish)
+      .toHaveBeenCalledWith(
+        expect.any(String),
+        expect.any(String),
+        { qos: 1 },
+        expect.any(Function),
+      );
+  });
 
   it('should close the client connection', async () => {
     const config = {
@@ -125,9 +120,9 @@ describe('Mqtt save', () => {
     };
     const mockClient = {
       end: jest.fn(),
-      publish: (topic, message, options, callback) => { 
+      publish: (topic, message, options, callback) => {
         callback();
-     }
+      },
     };
     mqtt.connect.mockImplementation(() => mockClient);
 
@@ -141,7 +136,7 @@ describe('Mqtt save', () => {
     await mqttClient.save(config, reading);
 
     expect(mockClient.end).toHaveBeenCalled();
-    });
+  });
 
   it.each([
     [[{
@@ -206,24 +201,24 @@ describe('Mqtt save', () => {
         { type: 't', value: 19.2 },
       ],
     }],
-      'test/temp',
-      '19.2'],
+    'test/temp',
+    '19.2'],
     [[{
       id: 'sensor 2',
       readings: [
         { type: 'h', value: 45.5 },
       ],
     }],
-      'test/hum',
-      '45.5'],
+    'test/hum',
+    '45.5'],
     [[{
       id: 'sensor 3',
       readings: [
         { type: 'p', value: 945 },
       ],
     }],
-      'test/pres',
-      '945'],
+    'test/pres',
+    '945'],
   ])('should call publish with the correct topic and value (%#)', async (reading, expectedTopic, expectedValue) => {
     const config = {
       host: 'mqtt://mqtt.test.com',
@@ -255,6 +250,7 @@ describe('Mqtt save', () => {
 
     await mqttClient.save(config, reading);
 
-    expect(mockClient.publish).toHaveBeenCalledWith(expectedTopic, expectedValue, expect.any(Object), expect.any(Function));
+    expect(mockClient.publish)
+      .toHaveBeenCalledWith(expectedTopic, expectedValue, expect.any(Object), expect.any(Function));
   });
 });

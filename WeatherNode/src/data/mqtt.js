@@ -8,7 +8,7 @@ async function save(config, readings) {
   if (!config.clientId) {
     throw new Error('Unspecified MQTT client id');
   }
-  
+
   const options = { clientId: config.clientId };
 
   if (config.username) {
@@ -20,7 +20,7 @@ async function save(config, readings) {
   }
 
   const client = mqtt.connect(config.host, options);
-  
+
   if (readings) {
     readings.forEach((sensorReadings) => {
       const { id } = sensorReadings;
@@ -28,7 +28,7 @@ async function save(config, readings) {
       sensorReadings.readings.forEach((element) => {
         const topic = config.topics.find((f) => f.sensor === id && f.type === element.type);
         client.publish(topic.topic, element.value.toString(), { qos: 1 }, () => { client.end(); });
-      })
+      });
     });
   }
 }
@@ -37,4 +37,4 @@ module.exports = {
   save,
 };
 
-//, username: 'mqttUser', password: 'mqttPassword'
+// , username: 'mqttUser', password: 'mqttPassword'

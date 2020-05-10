@@ -4,7 +4,6 @@ const adafruitio = require('./adafruitIo');
 jest.mock('https');
 
 describe('Adafruit IO save', () => {
-
   let mockRequest;
 
   beforeEach(() => {
@@ -22,18 +21,12 @@ describe('Adafruit IO save', () => {
         {
           id: 'test-temperature',
           sensor: 'sensor 1',
-          type: 't'
-        }
-      ]
+          type: 't',
+        },
+      ],
     };
 
-    expect.assertions(1);
-
-    try {
-      await adafruitio.save(config, []);
-    } catch (e) {
-      expect(e.message).toEqual('Unspecified AIO Key');
-    }
+    await expect(adafruitio.save(config, [])).rejects.toThrow();
   });
 
   it('should throw error if user name is not specified', async () => {
@@ -43,18 +36,12 @@ describe('Adafruit IO save', () => {
         {
           id: 'test-temperature',
           sensor: 'sensor 1',
-          type: 't'
-        }
-      ]
+          type: 't',
+        },
+      ],
     };
 
-    expect.assertions(1);
-
-    try {
-      await adafruitio.save(config, []);
-    } catch (e) {
-      expect(e.message).toEqual('Unspecified user name');
-    }
+    await expect(adafruitio.save(config, [])).rejects.toThrow();
   });
 
   it('should have POST method in the options', async () => {
@@ -72,9 +59,9 @@ describe('Adafruit IO save', () => {
         {
           id: 'test-temperature',
           sensor: 'sensor 1',
-          type: 't'
-        }
-      ]
+          type: 't',
+        },
+      ],
     };
 
     await adafruitio.save(config, readings);
@@ -97,22 +84,23 @@ describe('Adafruit IO save', () => {
         {
           id: 'test-temperature',
           sensor: 'sensor 1',
-          type: 't'
-        }
-      ]
+          type: 't',
+        },
+      ],
     };
 
     const expected = {
       headers: {
         'X-AIO-key': 'aio-key-value',
         'Content-Type': 'application/json',
-        'Content-Length': 14
-      }
+        'Content-Length': 14,
+      },
     };
 
     await adafruitio.save(config, readings);
 
-    expect(https.request).toHaveBeenCalledWith(expect.any(String), expect.objectContaining(expected));
+    expect(https.request)
+      .toHaveBeenCalledWith(expect.any(String), expect.objectContaining(expected));
   });
 
   it('should close the connection after writing', async () => {
@@ -130,9 +118,9 @@ describe('Adafruit IO save', () => {
         {
           id: 'test-temperature',
           sensor: 'sensor 1',
-          type: 't'
-        }
-      ]
+          type: 't',
+        },
+      ],
     };
 
     await adafruitio.save(config, readings);
@@ -153,14 +141,14 @@ describe('Adafruit IO save', () => {
 
     const config = {
       aioKey: 'aio-key-value',
-      user: user,
+      user,
       feeds: [
         {
           id: 'test-temperature',
           sensor: 'sensor 1',
-          type: 't'
-        }
-      ]
+          type: 't',
+        },
+      ],
     };
 
     await adafruitio.save(config, readings);
@@ -175,28 +163,28 @@ describe('Adafruit IO save', () => {
         { type: 't', value: 19.2 },
       ],
     }],
-      'https://io.adafruit.com/api/v2/user-name/feeds/test-temperature/data'],
+    'https://io.adafruit.com/api/v2/user-name/feeds/test-temperature/data'],
     [[{
       id: 'sensor 1',
       readings: [
         { type: 'h', value: 45.5 },
       ],
     }],
-      'https://io.adafruit.com/api/v2/user-name/feeds/test-humidity/data'],
+    'https://io.adafruit.com/api/v2/user-name/feeds/test-humidity/data'],
     [[{
       id: 'sensor 1',
       readings: [
         { type: 'p', value: 945 },
       ],
     }],
-      'https://io.adafruit.com/api/v2/user-name/feeds/test-pressure/data'],
+    'https://io.adafruit.com/api/v2/user-name/feeds/test-pressure/data'],
     [[{
       id: 'sensor 2',
       readings: [
         { type: 'p', value: 945 },
       ],
     }],
-      'https://io.adafruit.com/api/v2/user-name/feeds/test-pressure-2/data']
+    'https://io.adafruit.com/api/v2/user-name/feeds/test-pressure-2/data'],
   ])('should POST a reading to the correct feed endpoint (%#)', async (readings, expected) => {
     const config = {
       aioKey: 'aio-key-value',
@@ -205,34 +193,34 @@ describe('Adafruit IO save', () => {
         {
           id: 'test-temperature',
           sensor: 'sensor 1',
-          type: 't'
+          type: 't',
         },
         {
           id: 'test-pressure',
           sensor: 'sensor 1',
-          type: 'p'
+          type: 'p',
         },
         {
           id: 'test-humidity',
           sensor: 'sensor 1',
-          type: 'h'
+          type: 'h',
         },
         {
           id: 'test-temperature-2',
           sensor: 'sensor 2',
-          type: 't'
+          type: 't',
         },
         {
           id: 'test-pressure-2',
           sensor: 'sensor 2',
-          type: 'p'
+          type: 'p',
         },
         {
           id: 'test-humidity-2',
           sensor: 'sensor 2',
-          type: 'h'
-        }
-      ]
+          type: 'h',
+        },
+      ],
     };
 
     await adafruitio.save(config, readings);
@@ -261,7 +249,7 @@ describe('Adafruit IO save', () => {
         { type: 'p', value: 945 },
       ],
     }],
-    { value: 945 }]
+    { value: 945 }],
   ])('should POST the correct value for each reading (%#)', async (readings, expected) => {
     const config = {
       aioKey: 'aio-key-value',
@@ -270,19 +258,19 @@ describe('Adafruit IO save', () => {
         {
           id: 'test-temperature',
           sensor: 'sensor 1',
-          type: 't'
+          type: 't',
         },
         {
           id: 'test-pressure',
           sensor: 'sensor 1',
-          type: 'p'
+          type: 'p',
         },
         {
           id: 'test-humidity',
           sensor: 'sensor 1',
-          type: 'h'
-        }
-      ]
+          type: 'h',
+        },
+      ],
     };
 
     await adafruitio.save(config, readings);
@@ -297,7 +285,7 @@ describe('Adafruit IO save', () => {
         { type: 't', value: 19.2 },
       ],
     }],
-      1],
+    1],
     [[{
       id: 'sensor 1',
       readings: [
@@ -305,7 +293,7 @@ describe('Adafruit IO save', () => {
         { type: 'h', value: 45.5 },
       ],
     }],
-      2],
+    2],
     [[{
       id: 'sensor 1',
       readings: [
@@ -322,7 +310,7 @@ describe('Adafruit IO save', () => {
         { type: 'p', value: 945 },
       ],
     }],
-      6]
+    6],
   ])('should POST once for each reading and sensor (%#)', async (readings, expected) => {
     const config = {
       aioKey: 'aio-key-value',
@@ -331,34 +319,34 @@ describe('Adafruit IO save', () => {
         {
           id: 'test-temperature-1',
           sensor: 'sensor 1',
-          type: 't'
+          type: 't',
         },
         {
           id: 'test-pressure-1',
           sensor: 'sensor 1',
-          type: 'p'
+          type: 'p',
         },
         {
           id: 'test-humidity-1',
           sensor: 'sensor 1',
-          type: 'h'
+          type: 'h',
         },
         {
           id: 'test-temperature-2',
           sensor: 'sensor 2',
-          type: 't'
+          type: 't',
         },
         {
           id: 'test-pressure-2',
           sensor: 'sensor 2',
-          type: 'p'
+          type: 'p',
         },
         {
           id: 'test-humidity-2',
           sensor: 'sensor 2',
-          type: 'h'
-        }
-      ]
+          type: 'h',
+        },
+      ],
     };
 
     await adafruitio.save(config, readings);

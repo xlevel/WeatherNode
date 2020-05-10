@@ -13,11 +13,10 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jest": "^23.8.2",
-    "jest": "^25.3.0"
+    "jest": "~26.0.1"
   },
   "dependencies": {
-    "mqtt": "^3.0.0",
-    "rewire": "^5.0.0"
+    "mqtt": "~4.0.1"
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint '**/*.js'",
