@@ -1,8 +1,14 @@
-/* eslint-disable no-console */
-
 const https = require('https');
 
 async function save(config, readings) {
+
+  if (!config.aioKey) {
+    throw new Error('Unspecified AIO Key');
+  }
+
+  if (!config.user) {
+    throw new Error('Unspecified user name');
+  }
 
   readings.forEach((sensorReadings) => {
     const { id } = sensorReadings;
