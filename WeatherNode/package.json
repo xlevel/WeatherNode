@@ -1,6 +1,6 @@
 {
   "name": "weathernode",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "WeatherNode",
   "main": "app.js",
   "license": "MIT",
