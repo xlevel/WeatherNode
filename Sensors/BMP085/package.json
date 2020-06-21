@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "bmp085": "~1.0.0"
+    "bmp180-sensor": "~1.1.0"
   },
   "devDependencies": {
     "eslint": "^7.3.0",
