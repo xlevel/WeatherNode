@@ -18,13 +18,6 @@
             "type": "../../../Sensors/BMP085/bmp085.js",
             "id": "Sensor 3",
             "settings": { }
-        },
-        {
-            "type": "../../../Sensors/DS18B20/ds18b20-sensor.js",
-            "id": "Sensor 4",
-            "settings": {
-                "id": 00-0000000000
-            }
         }
     ],
     /* Adafruit IO connection details */

@@ -11,7 +11,6 @@ This is the main data gathering application. Currently it has been developed to 
 Currently there are two supported sensors:
 * DHT22 - This driver is for the DHT22 family of temperature and humidity sensors. The following devices have been tested: DHT11, DHT22, AM2302
 * BMP085 - This driver is for the BMP085 family of temperature and pressure sensors. The following devices have been tested: BMP085, BMP180
-* DS18B20 - This driver is for the one wire DS18B20 temperature sensor.
 
 ## Installation
 
@@ -54,19 +53,6 @@ Example Configuration:
       "settings": { } 
   }
 ```
-#### DS18B20
-Example Configuration:
-
-```
-  {
-     "type": "../../../Sensors/DS18B20/ds18b20-sensor.js",
-      "id": "Sensor 4", // The sensor's name
-      "settings": {
-          "id": 00-0000000000 // The "1-wire" sensor id
-      }
-  }
-```
-
 ### Data Target
 
 #### Adafruit IO
