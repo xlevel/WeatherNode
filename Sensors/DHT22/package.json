@@ -9,11 +9,11 @@
   },
   "license": "MIT",
   "dependencies": {
-    "node-dht-sensor": "~0.3.0"
+    "node-dht-sensor": "~0.4.2"
   },
   "devDependencies": {
-    "eslint": "^4.12.1",
-    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint": "^7.3.0",
+    "eslint-config-airbnb-base": "^14.21.0",
     "eslint-plugin-import": "^2.8.0"
   },
   "scripts": {
