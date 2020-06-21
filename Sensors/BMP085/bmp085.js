@@ -1,26 +1,22 @@
-'use strict'; // eslint-disable-line
+const bmp180 = require('bmp180-sensor');
 
-const SensorLib = require('bmp085');
+async function read(config) {
+  const sensor = await bmp180(config.settings.address || 0x77, config.settings.mode || 1);
 
-class BMP085Sensor {
-  constructor(config) {
-    this.config = config;
-  }
+  const reading = await sensor.read();
 
-  read(callback) {
-    const sensor = new SensorLib();
-    sensor.read((sensorData) => {
-      const data = {
-        id: this.config.id,
-        readings: [
-          { type: 't', value: sensorData.temperature.toFixed(2) },
-          { type: 'p', value: sensorData.pressure.toFixed(2) },
-        ],
-      };
-      callback(data);
-    });
-  }
+  sensor.close();
+
+  console.log(reading);
+  return {
+    id: config.id,
+    readings: [
+      // { type: 't', value: reading.temperature.toFixed(2) },
+      // { type: 'h', value: reading.humidity.toFixed(2) },
+    ],
+  };
 }
 
-module.exports = BMP085Sensor;
-
+module.exports = {
+  read,
+};
