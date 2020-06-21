@@ -5,13 +5,32 @@ jest.mock('mqtt');
 
 describe('Mqtt save', () => {
   it('should connect to specified host', async () => {
-    const config = { host: 'mqtt://mqtt.test.com', clientId: 'clientId' };
+    const config = {
+      host: 'mqtt://mqtt.test.com',
+      clientId: 'clientId',
+      topics: [
+        {
+          topic: 'test/temp',
+          sensor: 'sensor 1',
+          type: 't',
+        },
+      ],
+    };
     const mockClient = {
       end: jest.fn(),
+      publish: jest.fn(),
     };
+
     mqtt.connect.mockImplementation(() => mockClient);
 
-    await mqttClient.save(config, []);
+    const reading = [{
+      id: 'sensor 1',
+      readings: [
+        { type: 't', value: 19.2 },
+      ],
+    }];
+
+    await mqttClient.save(config, reading);
 
     expect(mqtt.connect).toHaveBeenCalledWith('mqtt://mqtt.test.com', expect.any(Object));
   });
@@ -29,25 +48,63 @@ describe('Mqtt save', () => {
   });
 
   it('should have username in the options if specified in the config', async () => {
-    const config = { host: 'mqtt://mqtt.test.com', clientId: 'clientId', username: 'user' };
+    const config = {
+      host: 'mqtt://mqtt.test.com',
+      clientId: 'clientId',
+      username: 'user',
+      topics: [
+        {
+          topic: 'test/temp',
+          sensor: 'sensor 1',
+          type: 't',
+        },
+      ],
+    };
     const mockClient = {
       end: jest.fn(),
+      publish: jest.fn(),
     };
     mqtt.connect.mockImplementation(() => mockClient);
 
-    await mqttClient.save(config, []);
+    const reading = [{
+      id: 'sensor 1',
+      readings: [
+        { type: 't', value: 19.2 },
+      ],
+    }];
+
+    await mqttClient.save(config, reading);
 
     expect(mqtt.connect).toHaveBeenCalledWith(expect.any(String), { clientId: 'clientId', username: 'user' });
   });
 
   it('should have password in the options if specified in the config', async () => {
-    const config = { host: 'mqtt://mqtt.test.com', clientId: 'clientId', password: 'password' };
+    const config = {
+      host: 'mqtt://mqtt.test.com', 
+      clientId: 'clientId', 
+      password: 'password',
+      topics: [
+        {
+          topic: 'test/temp',
+          sensor: 'sensor 1',
+          type: 't',
+        },
+      ],
+    };
     const mockClient = {
       end: jest.fn(),
+      publish: jest.fn(),
     };
     mqtt.connect.mockImplementation(() => mockClient);
 
-    await mqttClient.save(config, []);
+    const reading = [{
+      id: 'sensor 1',
+      readings: [
+        { type: 't', value: 19.2 },
+      ],
+    }];
+
+    await mqttClient.save(config, reading);
 
     expect(mqtt.connect).toHaveBeenCalledWith(expect.any(String), { clientId: 'clientId', password: 'password' });
   });
@@ -201,24 +258,24 @@ describe('Mqtt save', () => {
         { type: 't', value: 19.2 },
       ],
     }],
-    'test/temp',
-    '19.2'],
+      'test/temp',
+      '19.2'],
     [[{
       id: 'sensor 2',
       readings: [
         { type: 'h', value: 45.5 },
       ],
     }],
-    'test/hum',
-    '45.5'],
+      'test/hum',
+      '45.5'],
     [[{
       id: 'sensor 3',
       readings: [
         { type: 'p', value: 945 },
       ],
     }],
-    'test/pres',
-    '945'],
+      'test/pres',
+      '945'],
   ])('should call publish with the correct topic and value (%#)', async (reading, expectedTopic, expectedValue) => {
     const config = {
       host: 'mqtt://mqtt.test.com',

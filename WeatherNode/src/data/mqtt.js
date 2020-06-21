@@ -19,15 +19,14 @@ async function save(config, readings) {
     options.password = config.password;
   }
 
-  const client = mqtt.connect(config.host, options);
-
   if (readings) {
     readings.forEach((sensorReadings) => {
       const { id } = sensorReadings;
 
       sensorReadings.readings.forEach((element) => {
+        const client = mqtt.connect(config.host, options);
         const topic = config.topics.find((f) => f.sensor === id && f.type === element.type);
-        client.publish(topic.topic, element.value.toString(), { qos: 1 }, () => { client.end(); });
+        client.publish(topic.topic, element.value.toString(), { qos: 1 }, () => { client.end() });
       });
     });
   }
@@ -36,5 +35,3 @@ async function save(config, readings) {
 module.exports = {
   save,
 };
-
-// , username: 'mqttUser', password: 'mqttPassword'
