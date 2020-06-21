@@ -1,29 +1,37 @@
-/* eslint-disable no-console */
-
 const mqtt = require('mqtt');
 
-class Mqtt {
-  constructor(config) {
-    this.config = config.data.config;
-    this.client = mqtt.connect(this.config.host);
+async function save(config, readings) {
+  if (!config.host) {
+    throw new Error('Unspecified MQTT host');
   }
 
-  save(reading) {
-    const id = reading.id; // eslint-disable-line prefer-destructuring
+  if (!config.clientId) {
+    throw new Error('Unspecified MQTT client id');
+  }
 
-    if (this.client.connected) {
-      reading.readings.forEach((element) => {
-        const topic = this.config.topics.find(f => f.sensor === id && f.type === element.type);
+  const options = { clientId: config.clientId };
 
-        console.log(`${topic.topic} - ${element.value}`);
-        this.client.publish(topic.topic, element.value.toString(), (err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }, this);
-    }
+  if (config.username) {
+    options.username = config.username;
+  }
+
+  if (config.password) {
+    options.password = config.password;
+  }
+
+  if (readings) {
+    readings.forEach((sensorReadings) => {
+      const { id } = sensorReadings;
+
+      sensorReadings.readings.forEach((element) => {
+        const client = mqtt.connect(config.host, options);
+        const topic = config.topics.find((f) => f.sensor === id && f.type === element.type);
+        client.publish(topic.topic, element.value.toString(), { qos: 1 }, () => { client.end() });
+      });
+    });
   }
 }
 
-module.exports = Mqtt;
+module.exports = {
+  save,
+};

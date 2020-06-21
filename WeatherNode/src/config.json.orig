@@ -10,6 +10,7 @@
             "type": "../../../Sensors/DHT22/dht22.js",
             "id": "Sensor 2",
             "settings": {
+                "type": 22 // 11 for DHT11 sensor, 22 for DHT22 or AM2302 sensors
                 "pin": 4
             }
         },
@@ -17,13 +18,6 @@
             "type": "../../../Sensors/BMP085/bmp085.js",
             "id": "Sensor 3",
             "settings": { }
-        },
-        {
-            "type": "../../../Sensors/DS18B20/ds18b20-sensor.js",
-            "id": "Sensor 4",
-            "settings": {
-                "id": 00-0000000000
-            }
         }
     ],
     /* Adafruit IO connection details */
@@ -52,11 +46,13 @@
         }
     }
     /* MQTT Connections details */
-
     "data": {
         "type": "./mqtt.js",
         "config": {
             "host":"MQTT SERVER URI",
+            "clientId":"CLIENT ID",
+            "username":"USERNAME - OPTIONAL", 
+            "password":"PASSWORD - OPTIONAL",
             "topics":[
                 {
                     "topic":"test/temp",
